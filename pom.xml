@@ -19,7 +19,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<slf4j_version>1.7.24</slf4j_version>
-		<fastjson_version>1.1.15</fastjson_version>
+		<fastjson_version>1.2.31</fastjson_version>
 	</properties>
 
 
