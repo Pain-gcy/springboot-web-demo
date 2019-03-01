@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件测试</title>
+    <script src="https://unpkg.com/vue@2.6.7/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <runoob></runoob>
+    <runoobs></runoobs>
+    <child message="hello!"></child>
+    <div>
+        <input v-model="parentMsg">
+        <br>
+        <child v-bind:message="parentMsg"></child>
+    </div>
+
+    <ol>
+        <todo-item v-for="item in sites" v-bind:todo="item"></todo-item>
+    </ol>
+</div>
+<hr>
+<!--自定义事件-->
+<div id="counter-event-example">
+    <p>{{ total }}</p>
+    <button-counter v-on:increment="incrementTotal"></button-counter>
+    <button-counter v-on:increment="incrementTotal"></button-counter>
+</div>
+
+<script>
+  // 注册组件 全局的
+  Vue.component('runoob', {
+    template: '<h1>自定义全局组件!</h1>'
+  });
+  Vue.component('child', {// 注册
+    // 声明 props
+    props: ['message'],
+    // 同样也可以在 vm 实例中像 "this.message" 这样使用
+    template: '<span>{{ message }}</span>'
+  });
+  Vue.component('todo-item', {
+    props: ['todo'],
+    template: '<li>{{ todo.text }}</li>'
+  });
+
+  var child = {
+    template: '<h1>自定义局部组件!</h1>'
+  }
+
+  new Vue({
+    el: '#app',
+    data: {
+      parentMsg: '父组件内容',
+      sites: [
+        { text: 'Runoob' },
+        { text: 'Google' },
+        { text: 'Taobao' }
+      ]
+    },
+    methods: {
+
+    },
+    components: {// 局部组件
+        'runoobs':child
+    }
+  })
+
+//  自定义组件
+
+  Vue.component('button-counter', {
+    template: '<button v-on:click="incrementHandler">{{ counter }}</button>',
+    data: function () {
+      return {
+        counter: 0
+      }
+    },
+    methods: {
+      incrementHandler: function () {
+        this.counter += 1
+        this.$emit('increment')
+      }
+    },
+  })
+  new Vue({
+    el: '#counter-event-example',
+    data: {
+      total: 0
+    },
+    methods: {
+      incrementTotal: function () {
+        this.total += 1
+      }
+    }
+  })
+</script>
+
+</body>
+</html>

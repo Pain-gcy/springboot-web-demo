@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>测试</title>
+    <script src="https://unpkg.com/vue@2.6.7/dist/vue.js"></script>
+</head>
+
+<body>
+<h1>Hello thymeleaf</h1>
+
+<h2 th:text="'名称：'+${name}">默认值</h2>
+
+<h4 th:text="'json串:' + ${job.sss}">ssss</h4>
+
+<div th:text="'json串:' + ${job.sss}">{{message}}</div>
+<div id="app">
+    <ul>
+        <li v-for="value in object">
+            {{ value }}
+        </li>
+    </ul>
+    <hr>
+    <ul>
+        <li v-for="(value, key) in object">
+            {{ key }} : {{ value }}
+        </li>
+    </ul>
+    <hr>
+    <ul>
+        <li v-for="(value, key, index) in object">
+            {{ index }}. {{ key }} : {{ value }}
+        </li>
+    </ul>
+
+    <p>{{ message }}</p>
+    <input v-model="message">
+    <button v-on:click="reverseMessage">反转字符串</button>
+</div>
+<hr>
+<div id="appt">
+    <p>原始字符串: {{ message }}</p>
+    <p>计算后反转字符串: {{ reversedMessage }}</p>
+
+
+</div>
+
+<script>
+  var vm1 = new Vue({
+    el: '#appt',
+    data: {
+      message:'hahaahha'
+    },
+    computed: {
+      // 计算属性的 getter
+      reversedMessage: function () {
+        // `this` 指向 vm 实例
+        return this.message.split('').reverse().join('')
+      }
+    }
+  });
+
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      message: 'hahaahha',
+      object: {
+        name: '菜鸟教程',
+        url: 'http://www.runoob.com',
+        slogan: '学的不仅是技术，更是梦想！'
+      }
+    },
+    methods: {
+      reverseMessage: function () {
+        this.message = this.message.split('').reverse().join('')
+      }
+    }
+  });
+
+</script>
+</body>
+</html>
